@@ -1,0 +1,18 @@
+language: generic
+os:
+- linux
+- osx
+env:
+  global:
+  - THIS_PACKAGE=libparsifal
+  - TRAVIS_PYTHON_VERSION="2.7"
+  - NUMPY_VERSION="1.9"
+  - secure: nXeskcHR/QnxsHE8Agb/1txTSih85F6uowqI73iGSW9fETtfBJEFhAPOLkcqmPDfSgavzuiSU5N4gxSgMFG18xSV1aJKltX11koY85LGpBuXZ5edt+k5wBJdIG0RhOoe7NNxuEhaoziwrl1nxAVafDVj+nTmvsbELftwWG9TkVMIqtcBpydX6XT8pGebuT9z1uq/VZxJqBRtBoLPDdo9/jWoGK9nxBNFs+FSpZsIc5um/aH/TmhY69TqqU1innBmZT3GP1pGMcsUHnapZ+D8DkN/fZ442TB1RyKzp9Qa71MVRR1oMg5ZeoCgxrP0VjATIxD0DQYxrz5i8aD3EUN2vJ+bI/+tGbo4HPe6GTsLyLudvOzBdJ0qN1J9CHhZSRAFF++q0/nG7xBUKRn8rCOjO0D1AUABObdt9BqXmwU/qBudDrvux6IK01z+kwo05h+TkH+35C19QcplpdVrLOac2nfdLQxYDyY02GwL269yAZ0PIYJGmdHmDaI8nMtt7ad1cNNf6nsq6alDCegE5VIxbJV4V1CN/jl8e5bASZfs7+dI2W/MG9GsFFQRiz8Cq1YNluUCp8qWnwQPPXhbbExGy5vSGa41XJwFiJSPNzFOna8hvf7yt4LUz1LEHbahkmYfmBm0EDW8/HQ4qLkO1NlmzWOAxejDQH+UgA2+oZDwm5A=
+sudo: false
+install:
+- bash ci/travis/install_python.sh $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+script:
+- conda build recipe -c conda-forge -c csdms/channel/dev -c csdms
+after_success:
+- bash ci/travis/deploy_to_anaconda.sh $THIS_PACKAGE

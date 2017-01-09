@@ -24,4 +24,4 @@ pushd runtime/libparsifal
   make install
 popd
 
-rm "$PREFIX"/lib64
+rm "$PREFIX"/lib64 || echo "Unable to remove $PREFIX/lib64"

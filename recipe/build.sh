@@ -15,7 +15,9 @@ export JAVA=$JAVAPREFIX/bin/java
 export PYTHON=$PREFIX/bin/python
 export PATH=$JAVAPREFIX/bin:$PATH
 
-ln -s "$PREFIX/lib" "$PREFIX/lib64"
+if [! -d "$PREFIX/lib64" ]; then
+  ln -s "$PREFIX/lib" "$PREFIX/lib64"
+fi
 
 pushd runtime/libparsifal
   ./configure --prefix=$PREFIX --disable-documentation \

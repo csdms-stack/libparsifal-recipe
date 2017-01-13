@@ -34,10 +34,15 @@ cat << EOF | docker run -i \
 
 export BINSTAR_TOKEN=${BINSTAR_TOKEN}
 export PYTHONUNBUFFERED=1
+export PATH=/usr/local/miniconda/bin:$PATH
 
 echo "$config" > ~/.condarc
 # A lock sometimes occurs with incomplete builds. The lock file is stored in build_artefacts.
 conda clean --lock
+
+conda config --set always_yes yes --set changeps1 no
+conda install python=2.7
+conda install -q conda-build anaconda-client coverage sphinx
 
 conda build /recipe_root --quiet || exit 1
 curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > $HOME/anaconda_upload.py

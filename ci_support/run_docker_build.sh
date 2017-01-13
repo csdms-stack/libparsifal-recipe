@@ -14,6 +14,7 @@ config=$(cat <<CONDARC
 
 channels:
  - conda-forge
+ - csdms-stack
  - defaults # As we need conda-build
 
 conda-build:
@@ -28,7 +29,7 @@ cat << EOF | docker run -i \
                         -v ${RECIPE_ROOT}:/recipe_root \
                         -v ${FEEDSTOCK_ROOT}:/feedstock_root \
                         -a stdin -a stdout -a stderr \
-                        condaforge/linux-anvil \
+                        mcflugen/centos \
                         bash || exit $?
 
 export BINSTAR_TOKEN=${BINSTAR_TOKEN}
@@ -38,10 +39,8 @@ echo "$config" > ~/.condarc
 # A lock sometimes occurs with incomplete builds. The lock file is stored in build_artefacts.
 conda clean --lock
 
-conda install --yes --quiet conda-forge-build-setup
-source run_conda_forge_build_setup
-
-# Embarking on 1 case(s).
-    conda build /recipe_root --quiet || exit 1
-    upload_or_check_non_existence /recipe_root conda-forge --channel=main || exit 1
+conda build /recipe_root --quiet || exit 1
+curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > $HOME/anaconda_upload.py
+echo $BINSTAR_TOKEN | python $HOME/anaconda_upload.py /recipe_root --channel=main --org=csdms-stack
+  --token=-
 EOF

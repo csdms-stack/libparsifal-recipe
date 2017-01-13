@@ -45,7 +45,7 @@ conda install python=2.7
 conda install -q conda-build anaconda-client coverage sphinx
 
 conda build /recipe_root --quiet || exit 1
-curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > $HOME/anaconda_upload.py
-echo $BINSTAR_TOKEN | python $HOME/anaconda_upload.py /recipe_root --channel=main --org=csdms-stack
-  --token=-
+
+curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > anaconda_upload.py
+echo $BINSTAR_TOKEN | python anaconda_upload.py /recipe_root --channel=main --org=csdms-stack --token=-
 EOF

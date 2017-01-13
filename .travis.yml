@@ -12,7 +12,7 @@ sudo: false
 addons:
   apt:
     packages:
-    - libc6=2.12
+    - libc6=2.12-0ubuntu10.10
 before_install:
 - |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then

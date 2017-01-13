@@ -8,22 +8,13 @@ env:
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
   - TRAVIS_PYTHON_VERSION="2.7"
   - secure: CqdH66akh2X2p7z7Php+ASCRPtVNYciLodYAg/lCia8Ch6+SgGzkCZE5tBHi3DfSzoMXWJ55AKHgO8prUFPPjlk2fSe4kTgiaNQf6JsuV4gTeeuuogC34d1RYZPizCnBzoppgSs8cFO9eewIYpbgjEB2eF0FV2MAtDG32ffTUfA002gup9LR1s8D8BDy/Y38iw5kNtzILeLVGKng3Dv/gLHqbUi95VZqe1zYJQDhy7vbbY83x+1JBOadmv3ztLENqdjgkVY2I2OrZ2B2+pqr/7pvdfKE0M4dPWu/BKQ0eLmevgkK5LjzLBSIMllwcUr+QFZHjj2bsQWB6IK2h8G/cQHYZnEuPO/7MXeE17Tz1AtXWvSCmpO7lFVJjtdFDJKMpbPyPBSNR9ACsPW1AQ4fOWfM0Jsm0A6ILDFiLcfmoA8N4au+0fVBewhY3V3Ufl6G6Y6m+XCbaDYC8HD2d+qXtg/HeXtYShc9Le2BoQ2fKl23TlOkBwYyeFIknQB0x+bxtb9g91fjhdv7JF0mXBFzRcsIkn6I9nNXtBDHb5yMmYjeXbcuUPsIgvNxO0mzsn1hOGX5+e2lbQS55M1tFUAO28Vkdil27O3xOIQZ+i5MQzcvQrOJHvfumUVVSSR8f1mOCu+GZCae7FB57J5smUqPEgXRc9bcnCfP0zXbBrtqS6g=
-# sudo: false
-# addons:
-#   apt:
-#     packages:
-#     - libc6=2.12.1-0ubuntu10.2
+sudo: false
 before_install:
 - |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then
     brew remove --force $(brew list)
     brew cleanup -s
     rm -rf $(brew --cache)
-  fi
-- |
-  if [[ $TRAVIS_OS_NAME == "linux" ]]; then
-    curl -O http://launchpadlibrarian.net/62601910/libc6_2.12.1-0ubuntu10.2_i386.deb
-    sudo dpkg -i libc6_2.12.1-0ubuntu10.2_i386.deb
   fi
 install:
 - |
